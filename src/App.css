@@ -1,11 +1,91 @@
-div {
-     display: flex;
-     flex-direction: column;
-     /* justify-content: center; */
+*{
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: sans-serif;
 }
 
+/* Header CSS */
+
 .header {
+     height: 50px;
+     width: 100%;
+     background-color: aquamarine;
      display: flex;
-     flex-direction: row;
-     justify-content: space-between;
+     align-items: center;
+     justify-content: center;
+     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+     border-radius: 10px;
+     padding: 0.76rem;
 }
+
+.header-title {
+     color: crimson;
+}
+
+.addButton {
+     color: aqua;
+     background-color: red;
+     height: 50px;
+     width: 50px;
+     position: fixed;
+     top: 0;
+     right: 0;
+     border: none;
+     outline: none;
+     padding: 10px;
+     border-radius: 50%;
+     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+     font-size: 30px;
+     font-weight: bold;
+     margin: 2px 3px;
+     cursor: pointer;
+}
+
+/* Main Page CSS */
+
+/* Modal Css */
+
+.modal {
+     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+     height: 500px;
+     width: 500px;
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     transform: translate( -50%, -50%);
+     padding: 25px;
+     border-radius: 10px;
+}
+
+.create-todo {
+     display: flex;
+     flex-direction: column;
+     justify-content: space-evenly;
+     height: 90%;
+}
+
+.action-wrapper {
+     display: flex;
+     justify-content: flex-start;
+     gap: 1rem;
+}
+
+.action-wrapper Button {
+     width: 6rem;
+}
+
+/* Footer CSS */
+
+.footer {
+     position: fixed;
+     bottom: 0;
+     background-color: black;
+     height: 50px;
+     color: greenyellow;
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
