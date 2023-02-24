@@ -89,7 +89,6 @@
 /* Modal Css */
 
 .modal {
-     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
      height: 500px;
      width: 500px;
      position: fixed;
@@ -98,6 +97,8 @@
      transform: translate(-50%, -50%);
      padding: 25px;
      border-radius: 10px;
+     background: white;
+     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .create-todo {
