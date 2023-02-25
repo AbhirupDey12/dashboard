@@ -9,7 +9,7 @@ export default class Header extends Component {
                     <h1 className='header-title'>Todo App</h1>
 
                     <button
-                         onClick={() => this.props.changetatus(true)}
+                         onClick={() => this.props.changeStatus(true)}
                          className='addButton'
                     >
                          +

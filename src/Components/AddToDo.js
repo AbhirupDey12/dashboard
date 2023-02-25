@@ -8,23 +8,33 @@ export default class AddToDo extends Component {
      constructor(props) {
           super(props);
           this.state = {
-               title: '',
-               desc: '',
-               status: ''
+               title: this.props.currentEditTodo ? this.props.currentEditTodo.name : "",
+               desc: this.props.currentEditTodo ? this.props.currentEditTodo.description : "",
+               status: this.props.currentEditTodo ? this.props.currentEditTodo.status : ""
           }
      }
 
      createTodo = () => {
-          this.props.createTodo(this.state.title, this.state.desc, this.state.status);
+          if (this.props.currentEditTodo) {
+               this.props.updateTodo(this.state.title, this.state.desc, this.state.status, this.props.currentEditTodo.id);
+          } else {
+               this.props.createTodo(this.state.title, this.state.desc, this.state.status);
+          }
+          this.props.changeStatus(false);
      };
 
      render() {
           return (
                <div className="create-todo">
-                    <h2>Create Todo</h2>
+                    <h2>
+                         {
+                              this.props.currentEditTodo ?
+                                   "Update To Do" : "Create Todo"
+                         }
+                    </h2>
                     <TextField id="outlined-basic" label="Todo Title" variant="outlined"
-                         value={this.state.title}
                          onChange={(e) => this.setState({ title: e.target.value })}
+                         value={this.state.title}
                     />
                     <TextField
                          id="outlined-multiline-static"
@@ -54,7 +64,10 @@ export default class AddToDo extends Component {
                          <Button variant="contained" color='success'
                               onClick={this.createTodo}
                          >
-                              Add
+                              {
+                                   this.props.currentEditTodo ?
+                                        "Update" : "Add"
+                              }
                          </Button>
                          <Button variant="outlined" color="success"
                               onClick={() => this.props.changetatus(false)}

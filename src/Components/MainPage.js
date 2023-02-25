@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 export default class MainPage extends Component {
 
@@ -19,6 +20,10 @@ export default class MainPage extends Component {
                                         <h3 className="ticket-status">
                                              {element.status}
                                         </h3>
+                                        <EditIcon
+                                             className='edit-icon'
+                                             onClick={() => this.props.changeStatus(true, element.id)}
+                                        />
                                         <DeleteIcon
                                              className='delete-icon'
                                              onClick={() => this.props.deleteTodo(element.id)}

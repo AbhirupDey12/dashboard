@@ -14,13 +14,15 @@ class App extends Component {
 
     this.state = {
       modalStatus: false,
-      todos: []
+      todos: [] ,
+      currentEditModal : {} ,
     }
   }
 
-  changeModalStatus = (status) => {
+  changeModalStatus = (status , id ) => {
     this.setState({
-      modalStatus: status
+      modalStatus: status ,
+      currentEditModal : this.state.todos.filter((ele) => ele.id === id)[0] 
     })
   };
 
@@ -38,21 +40,38 @@ class App extends Component {
     this.setState({ todos: this.state.todos.filter((ele) => ele.id !== id) });
   }
 
+  upDateTodo = (name , description , status , id) => {
+    const tempTodo = this.state.todos.map((ele) => {
+      if(ele.id === id) {
+       return {
+        id , name , status , description
+       }
+      }
+      return ele;
+    })
+    this.setState({
+      todos: tempTodo
+    })
+  }
+
   render() {
 
     return (
 
       <div className='App'>
-        <Header changetatus={this.changeModalStatus} />
+        <Header changeStatus={this.changeModalStatus} />
         <MainPage todos={this.state.todos}
           deleteTodo={this.deleteTodo}
+          changeStatus={this.changeModalStatus}
         />
         {
           this.state.modalStatus && (
             <div className="modal">
               <AddToDo
-                changetatus={this.changeModalStatus}
+                changeStatus={this.changeModalStatus}
                 createTodo={this.createTodo}
+                currentEditTodo = {this.state.currentEditModal}
+                updateTodo = {this.upDateTodo}
               />
             </div>
           )
