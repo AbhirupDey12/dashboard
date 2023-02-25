@@ -9,43 +9,64 @@ import AddToDo from './Components/AddToDo';
 class App extends Component {
 
   constructor(props) {
-
     super(props);
 
     this.state = {
       modalStatus: false,
-      todos: [] ,
-      currentEditModal : {} ,
+      todos: [],
+      searchText: "",
+      currentEditModal: {},
+      filteredSearch: []
     }
   }
 
-  changeModalStatus = (status , id ) => {
+  componentDidMount() {
     this.setState({
-      modalStatus: status ,
-      currentEditModal : this.state.todos.filter((ele) => ele.id === id)[0] 
+      todos: JSON.parse(localStorage.getItem('todoItem'))
+    }) ;
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem( 'todoItem' , JSON.stringify(this.state.todos)) ;
+  }
+  
+  changeSearchValue = (text) => {
+    const tempFiltered = this.state.todos.filter((ele) => ele.name.toLowerCase().includes(text.toLowerCase()) || ele.description.toLowerCase().includes(text.toLowerCase()) ||
+      ele.status.toLowerCase().includes(text.toLowerCase())
+    );
+    this.setState({ filteredSearch: tempFiltered });
+    this.setState({ searchText: text })
+  }
+
+  changeModalStatus = (status, id) => {
+    this.setState({
+      modalStatus: status,
+      currentEditModal: this.state.todos.filter((ele) => ele.id === id)[0]
     })
   };
 
   createTodo = (name, description, status) => {
-    this.state.todos.push({
-      id: Date.now(),
-      name: name,
-      description: description,
-      status: status
-    });
-    this.setState({ todos: this.state.todos, modalStatus: false });
+    if (name && status && description) {
+      this.state.todos.push({
+        id: Date.now(),
+        name: name,
+        description: description,
+        status: status
+      });
+      this.setState({ todos: this.state.todos, modalStatus: false });
+    }
   };
 
   deleteTodo = (id) => {
     this.setState({ todos: this.state.todos.filter((ele) => ele.id !== id) });
   }
 
-  upDateTodo = (name , description , status , id) => {
+  upDateTodo = (name, description, status, id) => {
     const tempTodo = this.state.todos.map((ele) => {
-      if(ele.id === id) {
-       return {
-        id , name , status , description
-       }
+      if (ele.id === id) {
+        return {
+          id, name, status, description
+        }
       }
       return ele;
     })
@@ -59,8 +80,18 @@ class App extends Component {
     return (
 
       <div className='App'>
-        <Header changeStatus={this.changeModalStatus} />
-        <MainPage todos={this.state.todos}
+
+        <Header
+          changeStatus={this.changeModalStatus}
+          changeSearchValue={this.changeSearchValue}
+        />
+
+        <MainPage
+          todos={this.state.searchText ?
+            this.state.filteredSearch
+            :
+            this.state.todos
+          }
           deleteTodo={this.deleteTodo}
           changeStatus={this.changeModalStatus}
         />
@@ -70,8 +101,8 @@ class App extends Component {
               <AddToDo
                 changeStatus={this.changeModalStatus}
                 createTodo={this.createTodo}
-                currentEditTodo = {this.state.currentEditModal}
-                updateTodo = {this.upDateTodo}
+                currentEditTodo={this.state.currentEditModal}
+                updateTodo={this.upDateTodo}
               />
             </div>
           )
