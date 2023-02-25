@@ -9,9 +9,12 @@ import AddToDo from './Components/AddToDo';
 class App extends Component {
 
   constructor(props) {
-    super(props)
+
+    super(props);
+
     this.state = {
-      modalStatus: false
+      modalStatus: false,
+      todos: []
     }
   }
 
@@ -19,19 +22,32 @@ class App extends Component {
     this.setState({
       modalStatus: status
     })
-  } ;
+  };
+
+  createTodo = (name, description, status) => {
+    this.state.todos.push({
+      id: Date.now(),
+      name: name,
+      description: description,
+      status: status
+    });
+    this.setState({ todos: this.state.todos, modalStatus: false });
+  };
 
   render() {
 
     return (
 
       <div className='App'>
-        <Header changetatus = {this.changeModalStatus} />
-        <MainPage />
+        <Header changetatus={this.changeModalStatus} />
+        <MainPage todos={this.state.todos} />
         {
           this.state.modalStatus && (
             <div className="modal">
-              <AddToDo  changetatus = {this.changeModalStatus}  />
+              <AddToDo
+                changetatus={this.changeModalStatus}
+                createTodo={this.createTodo}
+              />
             </div>
           )
         }
