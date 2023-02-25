@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default class MainPage extends Component {
 
@@ -18,6 +19,10 @@ export default class MainPage extends Component {
                                         <h3 className="ticket-status">
                                              {element.status}
                                         </h3>
+                                        <DeleteIcon
+                                             className='delete-icon'
+                                             onClick={() => this.props.deleteTodo(element.id)}
+                                        />
                                    </div>
                               );
                          })

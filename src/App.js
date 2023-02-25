@@ -34,13 +34,19 @@ class App extends Component {
     this.setState({ todos: this.state.todos, modalStatus: false });
   };
 
+  deleteTodo = (id) => {
+    this.setState({ todos: this.state.todos.filter((ele) => ele.id !== id) });
+  }
+
   render() {
 
     return (
 
       <div className='App'>
         <Header changetatus={this.changeModalStatus} />
-        <MainPage todos={this.state.todos} />
+        <MainPage todos={this.state.todos}
+          deleteTodo={this.deleteTodo}
+        />
         {
           this.state.modalStatus && (
             <div className="modal">

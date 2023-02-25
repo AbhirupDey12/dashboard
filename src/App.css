@@ -90,6 +90,14 @@
      border-radius: 3px;
      text-align: center;
      font-weight: 500;
+     cursor: pointer;
+}
+
+.delete-icon {
+     position: absolute;     
+     bottom: 5px;
+     right: 10px;
+     cursor: pointer;
 }
 
 /* Modal Css */
@@ -137,3 +145,4 @@
      justify-content: center;
      align-items: center;
 }
+
